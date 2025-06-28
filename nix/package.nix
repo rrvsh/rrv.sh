@@ -5,7 +5,7 @@ let
 in
 stdenv.mkDerivation {
   inherit name version;
-  src = ./src;
+  src = ../src;
   installPhase = ''
     cp -r . $out
   '';

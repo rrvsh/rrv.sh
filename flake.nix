@@ -14,7 +14,7 @@
           pkgs = legacyPackages.${system};
         in
         {
-          default = pkgs.callPackage ./default.nix { };
+          default = pkgs.callPackage ./nix/package.nix { };
         }
       );
     };
