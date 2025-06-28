@@ -27,5 +27,6 @@
           default = pkgs.callPackage ./nix/package.nix { };
         }
       );
+      nixosModules.default = import ./nix/modules/nixos.nix;
     };
 }
