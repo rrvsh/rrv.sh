@@ -1,17 +1,27 @@
 {
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  inputs.systems.url = "github:nix-systems/default-linux";
   outputs =
     inputs:
     let
-      inherit (inputs.nixpkgs) lib legacyPackages;
-      forEachSystem = lib.genAttrs (import inputs.systems);
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      inherit (builtins) map listToAttrs;
+      forAllSystems =
+        f:
+        listToAttrs (
+          map (system: {
+            name = system;
+            value = f system;
+          }) systems
+        );
     in
     {
-      packages = forEachSystem (
+      packages = forAllSystems (
         system:
         let
-          pkgs = legacyPackages.${system};
+          pkgs = inputs.nixpkgs.legacyPackages.${system};
         in
         {
           default = pkgs.callPackage ./nix/package.nix { };
