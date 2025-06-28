@@ -11,3 +11,12 @@ div.container {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+a,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+}
+a.fa {
+  text-decoration: none;
+}
