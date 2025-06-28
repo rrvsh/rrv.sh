@@ -11,6 +11,9 @@ div.container {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+div.list {
+  text-align: left;
+}
 a,
 a:visited,
 a:hover,
