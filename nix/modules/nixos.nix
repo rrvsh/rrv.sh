@@ -33,7 +33,7 @@ in
       isSystemUser = true;
       description = "rrv.sh server user";
     };
-    users.groups.rrv-sh = mkIf (cfg.user == "rrv-sh") { };
+    users.groups.rrv-sh = mkIf (cfg.group == "rrv-sh") { };
     systemd.services.rrv-sh = {
       description = "the rrv.sh website";
       after = [ "network.target" ];
@@ -44,7 +44,11 @@ in
         RestartSec = "5s";
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${pkgs.live-server}/bin/live-server -p ${toString cfg.port} ${package}";
+        ExecStart = ''
+          ${pkgs.caddy}/bin/caddy file-server \
+            --root ${package} \
+            --listen :${toString cfg.port}
+        '';
       };
     };
   };
